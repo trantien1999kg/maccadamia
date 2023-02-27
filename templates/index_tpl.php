@@ -113,7 +113,7 @@
 
                         <div class="boxslider_details-btntag">
 
-                            <a href="capacity-profile" class="changeBackground "><?=_oficescoffee?></a>
+                            <a href="<?= $func->getCom('san-pham')?>" class="changeBackground "><?=_oficescoffee?></a>
 
                         </div>
 
@@ -123,7 +123,7 @@
 
                         <div class="boxintro_details-btn">
 
-                            <a href="gioi-thieu" class="changeBackground"><?=_xemthem?></a>
+                            <a href="<?= $func->getCom('gioi-thieu')?>" class="changeBackground"><?=_xemthem?></a>
 
                         </div>
 

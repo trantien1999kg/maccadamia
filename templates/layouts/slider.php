@@ -149,7 +149,7 @@
 
                                         <div class="boxslider_details-btntag">
 
-                                            <a href="<?=$value['linktag']?>"
+                                            <a href="<?= $func->getCom('san-pham')?>"
                                                 class="changeBackground"><?=_oficescoffee?></a>
 
                                         </div>
