@@ -1,0 +1,8 @@
+::1(admin)--update--bannerqc([["","type","=","ha_slider"]]) (17:29:08 16/02/2023)
+::1(admin)--update--bannerqc([["","type","=","ha_slider"]]) (17:31:50 16/02/2023)
+::1(admin)--update--bannerqc([["","type","=","ha_slider"]]) (17:35:52 16/02/2023)
+::1(admin)--update--photo([["","id","=",1]]) (17:49:37 16/02/2023)
+::1(admin)--update--photo([["","id","=",1]]) (17:50:33 16/02/2023)
+::1(admin)--update--photo([["","id","=",1]]) (17:50:33 16/02/2023)
+::1(admin)--update--bannerqc([["","type","=","ha_slider"]]) (17:52:28 16/02/2023)
+::1(admin)--update--photo([["","id","=",1]]) (17:54:10 16/02/2023)
