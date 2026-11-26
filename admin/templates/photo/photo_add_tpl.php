@@ -162,6 +162,16 @@ $(document).ready(function() {
 
                 <?php } ?>
 
+                <?php if(!empty($GLOBAL[$com][$type]['noidung'])){ ?>
+                <div class="formRow">
+                    <label>Nội dung (trang Giới thiệu)</label>
+                    <div class="ck_editor">
+                        <textarea title="Nội dung dài hiện ở trang Giới thiệu, bỏ trống thì dùng Mô tả" data-height="400" id="noidung_vi" class="ck_editors" name="data[noidung_vi]"><?=@$item['noidung_vi']?></textarea>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <?php } ?>
+
                 <div class="formRow">
                     <div class="formRight">
                         <label>Số thứ tự: </label>

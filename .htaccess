@@ -1,20 +1,30 @@
 RewriteEngine on
 Options -Indexes
 DirectoryIndex index.php
-# chuyển www sang none-www
-# RewriteCond %{HTTP_HOST} ^www.domain.org
-# RewriteRule (.*) https://domain.org/$1 [R=301,L]
 
-#chuyển tất cả domain con về domain chính
-# RewriteCond %{HTTP_HOST} !^domain.org$ [NC]
-# RewriteRule ^ http://domain.org%{REQUEST_URI} [R=301,L]
+# Máy thật (weasoft.vn): bắt buộc https + bỏ www, 1 bước 301. Không áp dụng ở localhost
+RewriteCond %{HTTP_HOST} ^(www\.)?weasoft\.vn$ [NC]
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://weasoft.vn/$1 [R=301,L]
 
-#chuyển site về https
-#RewriteCond %{HTTPS} off
-#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Chặn tải file nhạy cảm: dump DB, tài liệu, sao lưu, nén, log, cấu hình mẫu, file .txt (trừ robots.txt và llms.txt = bản tóm tắt cho AI)
+<FilesMatch "\.(sql|md|zip|rar|gz|bak|old|log|ini|sh|env)$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^(?!(robots|llms)\.txt$).*\.txt$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^(config\.sample\.php|composer\.(json|lock)|WEASoft\.html|\.git.*)$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
+RedirectMatch 404 ^/(docs|database|vendor)/
 
-RewriteRule ^resize1/([0-9]+)x([0-9]+)/([0-9]+)/(.*)$ watermark.php?w=$1&h=$2&zc=$3&q=100&wm=1&wl=5&wmr=0&src=https://%{HTTP_HOST}/web-cafein-0200722W/$4  [L]
-# php_flag display_errors 1
+# Không hiện lỗi PHP cho khách (lỗi vẫn ghi log của host)
+<IfModule mod_php7.c>
+    php_flag display_errors off
+</IfModule>
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^index\.php$ - [L]
@@ -29,8 +39,9 @@ RewriteRule ^resize1/([0-9]+)x([0-9]+)/([0-9]+)/(.*)$ watermark.php?w=$1&h=$2&zc
     ExpiresByType image/jpeg "access 1 year"
     ExpiresByType image/gif "access 1 year"
     ExpiresByType image/png "access 1 year"
+    ExpiresByType image/webp "access 1 year"
     ExpiresByType text/css "access 1 month"
-    ExpiresByType text/html "access 1 month"
+
     ExpiresByType application/pdf "access 1 month"
     ExpiresByType text/x-javascript "access 1 month"
     ExpiresByType application/x-shockwave-flash "access 1 month"
@@ -53,7 +64,7 @@ RewriteRule ^resize1/([0-9]+)x([0-9]+)/([0-9]+)/(.*)$ watermark.php?w=$1&h=$2&zc
     Header set Cache-Control "max-age=29030400, public"
 </FilesMatch>
 
-<FilesMatch ".(jpg|jpeg|png|gif|swf)$">
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|swf)$">
     Header set Cache-Control "max-age=604800, public"
 </FilesMatch>
 
@@ -61,6 +72,7 @@ RewriteRule ^resize1/([0-9]+)x([0-9]+)/([0-9]+)/(.*)$ watermark.php?w=$1&h=$2&zc
     Header set Cache-Control "max-age=604800, proxy-revalidate"
 </FilesMatch>
 
+# Trang HTML / PHP luôn lấy bản mới (sửa nội dung thấy ngay, mã chống giả mạo của form không bị cũ)
 <FilesMatch ".(html|htm|php)$">
-    Header set Cache-Control "max-age=604800, private, proxy-revalidate"
+    Header set Cache-Control "no-cache, private"
 </FilesMatch>

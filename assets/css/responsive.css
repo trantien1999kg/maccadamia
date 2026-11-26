@@ -8,6 +8,11 @@
         width: 100%;
     }
 }
+@media (min-width:1024px){
+    .intro_right{
+        padding-right: 150px;
+    }
+}
 @media (min-width:1060px) and (max-width:1473px){
 
   

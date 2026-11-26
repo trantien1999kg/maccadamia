@@ -13,7 +13,7 @@
 <meta name="format-detection" content="telephone=no">
 <!-- Viewport -->
 <?php if($config['website']['debug-responsive']){?>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <?php }else{?>
 	<meta name="viewport" content="width=1349" />
 <?php }?>
@@ -68,4 +68,6 @@
 <meta name="dc.title" CONTENT="<?=$seo->getSeo('title')?>">
 <meta name="dc.keywords" CONTENT="<?=$seo->getSeo('keywords')?>">
 <meta name="dc.description" CONTENT="<?=$seo->getSeo('description')?>">
-<?=$json_schema->SearchAction().$json_schema->Organization().$json_schema->Person().$json_schema->Library().$json_code?>
+<?php /* Bỏ SearchAction / Organization / Person / Library của template cũ: trùng hoặc sai (Library địa chỉ trống, Person tên công ty,
+   tìm kiếm trỏ trang robots chặn) làm Google / AI hiểu sai WEA Soft. Dữ liệu cấu trúc đúng nằm ở $weaSchema của từng trang WEA. */ ?>
+<?=$json_code?>

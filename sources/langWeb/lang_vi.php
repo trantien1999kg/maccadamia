@@ -58,7 +58,7 @@
 @define ('_gioithieuve','GIỚI THIỆU VỀ');
 @define ('_tukhoacantim','Từ khóa cần tìm');
 @define ('_hotro','Hỗ Trợ');
-@define ('_administrator','Administrator');
+@define ('_administrator','WEA Soft');
 @define ('_cn','Tiếng trung');
 @define ('_baivietkhac','Bài viết khác');
 @define ('_sodienthoaitontaitronghethong','Số điện thoại đã tồn tại trong hệ thống!!!');

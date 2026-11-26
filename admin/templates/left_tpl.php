@@ -100,6 +100,8 @@
         </li>
         
         <?php }}}?>
+        <?php /* Khối đặt hàng: bật / tắt bằng $GLOBAL_BANHANG trong libraries/setting.php */ ?>
+        <?php if(!empty($GLOBAL_BANHANG)){ ?>
         <li class="<?=($com=='order' || ($com=='baiviet' && 'cau-hoi'==$_GET['type'] ) || ($com=='baiviet' && 'htgh'==$_GET['type'] ) || ($com=='baiviet' && 'pttt'==$_GET['type'] )) ? "active" :""?>">
 
             <a class="has-arrow" href="#"
@@ -141,6 +143,7 @@
             </ul>
 
         </li>
+        <?php } ?>
 
         <?php if(count($PUBLIC)>0){?>
         <li class="<?=($com=='baiviet' & in_array($_GET['type'],$PUBLIC)) ? ' active' : '' ?>">
@@ -309,6 +312,8 @@
 
         <?php }?>
 
+        <?php /* Khối nhận tin: bật / tắt bằng $GLOBAL_NHANTIN trong libraries/setting.php */ ?>
+        <?php if(!empty($GLOBAL_NHANTIN)){ ?>
         <li
             class="<?=(($com=='contact' || $com=='booking' || $com=='newsletter') && $act=='man') || ($com=='company' && $_GET['type']=='desc-two') ? "active" :""?>">
 
@@ -327,14 +332,22 @@
 
                         href="index.php?com=booking&act=man&type=client" title="">Đăng ký nhận tin</a></li>
 
-                
+
 
             </ul>
 
         </li>
+        <?php } ?>
 
 
 
+        <?php /* Khách gửi từ form Liên hệ ngoài website (trước đây chỉ xem được qua chuông thông báo) */ ?>
+        <?php if($CONTACT==true){ ?>
+        <li class="<?=($com=='contact') ? "active" :""?>">
+            <a class="home" href="index.html?com=contact&act=man&type=contact" title="Khách liên hệ">
+                <i class="nav-icon text-sm fal fa-envelope"></i>Khách liên hệ</a>
+        </li>
+        <?php } ?>
         <li class="<?=($com=='redirect' || ($com=='seopage'&& $act=='capnhat')) ? "active" :""?>">
 
             <a class="has-arrow" href="#"

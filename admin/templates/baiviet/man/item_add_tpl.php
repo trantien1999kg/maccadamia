@@ -899,10 +899,11 @@ $(document).ready(function() {
 
                     <div class="formRow">
 
-                        <label>Tên riêng</label>
+                        <?php /* Nhãn ô này đổi được theo từng loại bài: $GLOBAL['baiviet'][type]['tenrieng-label'] trong libraries/setting.php */ ?>
+                        <label><?=!empty($table['tenrieng-label']) ? $table['tenrieng-label'] : 'Tên riêng'?></label>
 
                         <div class="formRight">
-                            <input type="text" name="data[tenrieng]" title="Nhập tên riêng" id="tenrieng" class="tipS"
+                            <input type="text" name="data[tenrieng]" title="<?=!empty($table['tenrieng-label']) ? $table['tenrieng-label'] : 'Nhập tên riêng'?>" id="tenrieng" class="tipS"
                                 value="<?=@$item['tenrieng']?>" />
                         </div>
                         <div class="clear"></div>

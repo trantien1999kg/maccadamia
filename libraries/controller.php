@@ -15,16 +15,6 @@
 	
     $router->setBasePath($config['website']['url']);
 
-    $router->map('GET',array('i-web/','i-web'), function(){
-		global $func, $config;
-		$func->redirect($config['website']['url']."i-web/index.html");
-		exit;
-	});
-	$router->map('GET',array('i-web','i-web'), function(){
-		global $func, $config;
-		$func->redirect($config['website']['url']."i-web/index.html");
-		exit;
-	});
     $router->map('GET|POST', '', 'index', 'home');
     $router->map('GET|POST', 'index.php', 'index', 'index');
     $router->map('GET|POST', 'sitemap.xml', 'sitemap', 'sitemap');
@@ -37,6 +27,8 @@
 	$router->map('GET|POST', '[lang:lang]/[a:com]/[a:act]', '', '');
 	$router->map('GET|POST', '[lang:lang]/[a:com]/[a:list]/[a:act]', '', '');
 	$router->map('GET|POST', '[lang:lang]/[a:com]/[a:list]/[a:cat]/[a:act]', '', '');
+	// URL ngắn không có mã ngôn ngữ, vd: /tin-tuc/ten-bai-viet (đặt sau các route có [lang] để không bắt nhầm)
+	$router->map('GET|POST', '[a:com]/[a:act]', '', '');
 
     $router->map('GET', _thumbs.'/[i:w]x[i:h]x[i:z]/[**:src]', function($w,$h,$z,$src){
         global $func;
@@ -48,7 +40,8 @@
         $func->createThumb($w,$h,$z,$src,$wtmNews,"news");
     },'watermark');
 	
-    $match = $router->match();
+    // HEAD (bot / công cụ kiểm tra SEO dùng để hỏi "trang có tồn tại không") đi như GET; máy chủ tự bỏ phần thân. Thiếu dòng này mọi trang trả 404 với HEAD
+    $match = $router->match(null, (($_SERVER["REQUEST_METHOD"] ?? "GET") === "HEAD") ? "GET" : null);
 
 	if(is_array($match))
 	{
@@ -113,6 +106,11 @@
 
 		array("tbl"=>"info","field"=>"id","source"=>"info","com"=>"gioi-thieu","type"=>"gioi-thieu"),
 
+		// 2 trang WEA mới (không có slug con, chỉ để sitemap liệt kê)
+		array("tbl"=>"info","field"=>"id","source"=>"wea_giai_phap","com"=>"giai-phap-wea-task","type"=>"giai-phap-wea-task"),
+
+		array("tbl"=>"info","field"=>"id","source"=>"wea_thiet_ke_web","com"=>"thiet-ke-website","type"=>"thiet-ke-website"),
+
 		array("tbl"=>"info","field"=>"id","source"=>"info","com"=>"ho-so-nang-luc","type"=>"ho-so-nang-luc"),
 
 		array("tbl"=>"baiviet","field"=>"id","source"=>"news","com"=>"bao-gia","type"=>"bao-gia"),
@@ -130,6 +128,10 @@
 		array("tbl"=>"photo","field"=>"id","source"=>"news","com"=>"dich-vu","type"=>"dich-vu"),
 
 		array("tbl"=>"baiviet","field"=>"id","source"=>"news","com"=>"tin-tuc","type"=>"tin-tuc"),
+
+		array("tbl"=>"baiviet","field"=>"id","source"=>"wea_tinh_nang","com"=>"tinh-nang","type"=>"tinh-nang"),
+
+		array("tbl"=>"baiviet","field"=>"id","source"=>"wea_cam_ket","com"=>"cam-ket","type"=>"cam-ket"),
 
 		array("tbl"=>"baiviet","field"=>"id","source"=>"news","com"=>"tac-gia","type"=>"tac-gia"),
 
@@ -151,7 +153,8 @@
 
 				if($act !=''){
 
-					$row = $db->rawQueryOne("select id from #_".$val['tbl']." where hienthi=1 and tenkhongdau_$lang='".$act."' and type='".$val['type']."'");
+					// Đường dẫn bài lấy từ URL: truyền bằng tham số ? (chống SQL injection), không ghép thẳng vào câu SQL
+					$row = $db->rawQueryOne("select id from #_".$val['tbl']." where hienthi=1 and tenkhongdau_$lang=? and type=?", array($act, $val['type']));
 
 				}
 		
@@ -167,6 +170,9 @@
 
 	}
 
+	// Mục của web cũ ngoài phạm vi WEA Soft (sản phẩm, album, báo giá, giỏ hàng, tài khoản, tìm kiếm, tác giả): trả 404 thay vì hiện trang rỗng giao diện cũ
+	if(in_array($com, array('tac-gia','ho-so-nang-luc','album','san-pham','bao-gia','carts','users','tim-kiem'))) $com = 'khong-ton-tai';
+
 	switch($com){
 
 
@@ -178,9 +184,10 @@
 
 			$seo->setSeo('type','object');
 
-			$source = "contact";
+			// Trang Liên hệ giao diện WEA (khung wea_shell); bản cũ sources/contact.php + contacts/contact_tpl.php để nguyên, không dùng
+			$source = "wea_lien_he";
 
-			$template = "contacts/contact";
+			$template = "wea/lien_he";
 
 			break;
 
@@ -206,9 +213,10 @@
 
 			$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
 
-			$source = "baiviet";
+			// Trang Giới thiệu dạng bài viết WEA (khung wea_shell), không dùng template cũ pages/baiviet
+			$source = "wea_gioi_thieu";
 
-			$template ="pages/baiviet";
+			$template = "wea/gioi_thieu";
 
 			break;
 
@@ -236,9 +244,66 @@
 
 			$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
 
-			$source = "news";
+			// Danh sách + chi tiết bài dùng giao diện Blog WEA (sources/wea_blog.php); bản cũ news/news_detail để nguyên, không dùng
+			$source = "wea_blog";
 
-			$template =isset($_GET['id']) ? "news/news_detail" : "news/news2";
+			$template = isset($_GET['id']) ? "wea/blog_chi_tiet" : "wea/blog";
+
+			break;
+
+		case 'giai-phap-wea-task':
+
+			// Trang giới thiệu giải pháp WEA Task (khung wea_shell), dữ liệu nhập ở admin mục "Giải pháp WEA Task: ..."
+			$title_seo = 'Giải pháp WEA Task';
+
+			$type = 'giai-phap-wea-task';
+
+			$source = "wea_giai_phap";
+
+			$template = "wea/giai_phap";
+
+			break;
+
+		case 'thiet-ke-website':
+
+			// Trang dịch vụ Thiết kế & Phát triển Website (khung wea_shell), có form tư vấn lưu vào Khách liên hệ
+			$title_seo = 'Thiết kế website';
+
+			$type = 'thiet-ke-website';
+
+			$source = "wea_thiet_ke_web";
+
+			$template = "wea/thiet_ke_web";
+
+			break;
+
+		case 'cam-ket':
+
+			// Bài viết Cam kết: /cam-ket = danh sách, /cam-ket/ten-bai = chi tiết
+			$title_seo = 'Cam kết';
+
+			$type = 'cam-ket';
+
+			$seo->setSeo('type',isset($_GET['id']) ? "article" : "website");
+
+			$source = "wea_cam_ket";
+
+			$template = isset($_GET['id']) ? "wea/cam_ket_chi_tiet" : "wea/cam_ket";
+
+			break;
+
+		case 'tinh-nang':
+
+			$title_seo = 'Tính năng';
+
+			$type = 'tinh-nang';
+
+			$seo->setSeo('type',isset($_GET['id']) ? "article" : "website");
+
+			$source = "wea_tinh_nang";
+
+			// Có id (bấm vào 1 tính năng) thì hiện trang chi tiết
+			$template = isset($_GET['id']) ? "wea/tinh_nang_chi_tiet" : "wea/tinh_nang";
 
 			break;
 			case 'album':
@@ -443,7 +508,8 @@
 
 		case 'sitemap':
 
-			include_once "sitemap.php";
+			// Sitemap riêng của website WEA (chỉ trang thuộc phạm vi); sitemap.php cũ để nguyên, không dùng
+			include_once _source."wea_sitemap.php";
 
 			exit();
 

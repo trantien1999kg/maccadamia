@@ -6,11 +6,11 @@
 
 	if($id!=''){
 
-		$row_detail = $db->rawQueryOne("select * from #_video where hienthi=1 and type='".$type_com."' and tenkhongdau='".$id."'");
+		$row_detail = $db->rawQueryOne("select * from #_video where hienthi=1 and type=? and tenkhongdau=?", array($type_com, $id));
 		$title_cat = $row_detail["ten_$lang"];
 		$title_bar .= $row_detail["ten_$lang"];
 		$title = $row_detail["ten_$lang"];
-		$tintuc_khac = $db->rawQuery("select * from #_video where hienthi=1 and type='".$type_com."' and id<>'".$id."' limit 0,6");
+		$tintuc_khac = $db->rawQuery("select * from #_video where hienthi=1 and type=? and id<>? limit 0,6", array($type_com, $id));
         
 	}else{
 

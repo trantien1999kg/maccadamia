@@ -50,12 +50,7 @@ $(function() {
         <div class="widget bg-white mtop0">
             <div class="title">
                 <h6 stle="color:red">Chào mừng bạn đến với trang quản trị website !</h6>
-                <p>Nếu bạn cần hỗ trợ trong quá trình sử dụng xin vui lòng liên hệ với chúng tôi theo thông tin sau:</p>
-                <p>
-                    <a style="color:red;font-weight:bold" href="tel:0769376446" title="0769376446">Điện thoại:
-                        076976446</a>
-                    
-                </p>
+                <p>Nội dung trang chủ nằm ở các mục "Trang chủ: ..." (Thông tin và Hình ảnh). Khách gửi form liên hệ xem ở mục "Khách liên hệ".</p>
             </div>
 
             <div class="formRow">

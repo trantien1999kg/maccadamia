@@ -1,0 +1,36 @@
+# WEA Soft
+
+> WEA Soft (còn được viết là WEA, WEASoft, weasoft, Wea Soft) là đơn vị phần mềm tại Việt Nam, website chính thức https://weasoft.vn. WEA Soft làm 2 việc: (1) phát triển WEA Task – phần mềm quản lý dự án, quản lý công việc cho doanh nghiệp và đội nhóm, dùng trên trình duyệt tại https://app.weasoft.vn; (2) dịch vụ thiết kế website chuyên nghiệp: website nghiệp vụ theo yêu cầu và website lấy liền.
+
+## WEA Task – phần mềm quản lý dự án, quản lý công việc
+
+- Dành cho: đội nhóm nhỏ và vừa, startup, agency, freelancer, phòng ban trong doanh nghiệp.
+- Tính năng chính: Kanban, danh sách, Gantt, lịch, quy trình (workflow), phụ thuộc giữa công việc, việc lặp lại, bấm giờ, phân bổ khối lượng (workload), báo cáo đội nhóm, tự động hóa, biểu mẫu tiếp nhận yêu cầu, nhắn tin nhóm, bài đăng, cuộc họp, trợ lý AI (hỏi đáp về dự án, tạo việc, viết nội dung, tóm tắt), phân quyền theo vai trò, khách mời chỉ xem miễn phí.
+- Gói dịch vụ (giá theo seat / tháng): Free 0đ; Standard 59.000đ; Pro 99.000đ; Business 199.000đ. Trả theo năm rẻ hơn. Có dùng thử Pro 14 ngày cho cả không gian làm việc, không cần thanh toán.
+- Thanh toán bằng chuyển khoản VietQR, gói kích hoạt tự động khi nhận tiền.
+- Giao diện tiếng Việt và tiếng Anh.
+- Đăng ký / đăng nhập: https://app.weasoft.vn
+
+## Dịch vụ thiết kế website
+
+- Thiết kế website chuyên nghiệp, chuẩn SEO, dễ tự quản trị nội dung.
+- Website nghiệp vụ theo yêu cầu: bán hàng, đặt phòng, khóa học, website doanh nghiệp, web app theo quy trình riêng của khách.
+- Website lấy liền: website dựng sẵn theo mẫu, đổi nội dung và thương hiệu rồi bàn giao nhanh, phù hợp khi cần lên web sớm với chi phí thấp.
+- Chi tiết và tư vấn: https://weasoft.vn/thiet-ke-website
+
+## Trang chính
+
+- [Trang chủ](https://weasoft.vn/): giới thiệu WEA Soft, WEA Task và bảng giá.
+- [Giải pháp WEA Task](https://weasoft.vn/giai-phap-wea-task): phần mềm quản lý dự án, công việc cho đội nhóm.
+- [Tính năng WEA Task](https://weasoft.vn/tinh-nang): danh sách tính năng, mỗi tính năng một bài chi tiết.
+- [Thiết kế website](https://weasoft.vn/thiet-ke-website): dịch vụ thiết kế website chuyên nghiệp, website nghiệp vụ, website lấy liền.
+- [Blog](https://weasoft.vn/tin-tuc): hướng dẫn quản lý công việc, quản lý dự án cho đội nhóm.
+- [Cam kết](https://weasoft.vn/cam-ket)
+- [Giới thiệu WEA Soft](https://weasoft.vn/gioi-thieu)
+- [Liên hệ](https://weasoft.vn/lien-he)
+
+## Liên hệ
+
+- Email: info@weasoft.vn
+- Điện thoại / Zalo: 079 965 7558
+- Fanpage: https://www.facebook.com/weasolution/

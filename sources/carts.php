@@ -559,7 +559,7 @@
 
 		}elseif($src=='xac-nhan'){
             $code = base64_decode(htmlspecialchars($_GET['code']));
-            $order_confirm = $d->rawQueryOne("select body_carts,body_checks,id from #_orders where code = '".$code."' order by id desc limit 0,1");
+            $order_confirm = $d->rawQueryOne("select body_carts,body_checks,id from #_orders where code = ? order by id desc limit 0,1", array($code));
             if(!empty($_POST)){
                 $check['body_checks'] = (int)$_POST['ok'];
                 $d->where('id', (int)$_POST['id']);

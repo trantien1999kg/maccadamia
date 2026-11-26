@@ -27,7 +27,7 @@
 
                             <div class="title-default t-center mt-20 p-relative">
 
-                                <h1><span><?=$seo->getSeo('h1')?></span></h1>
+                                <h2><span><?=$seo->getSeo('h1')?></span></h2>
 
                             </div>
 

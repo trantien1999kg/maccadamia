@@ -124,7 +124,7 @@ ul.nav-menu>li.active>a{
 .box_links_slider{
     display: flex;
     gap: 20px;
-    
+    margin-top: 40px;
 }
 .spin{
     -webkit-animation: spin 2s linear infinite;
@@ -249,6 +249,7 @@ color: white;
     line-height: 21px;
     letter-spacing: 0.0072em;
     color: #3A3A3C;
+    margin-top: 20px;
 }
 .boxintro_details-btn{
     overflow: hidden;
@@ -1360,6 +1361,7 @@ a.btn-taovandon:hover{
 .img_left_intro{
     border-radius: 25px;
     overflow: hidden;
+    transform: rotate(-45deg);
 }
 .bg_button{
     background: var(--html-bg-website) !important;
@@ -1432,4 +1434,26 @@ a.btn-taovandon:hover{
 }
 .box_img_new:hover .box_day_category_new{
     bottom: 0 !important;
+}
+.grid_introTop{
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    grid-gap: 20px;
+    margin-top: 25px;
+}
+.title_introTop{
+    position: absolute;
+    width: 200%;
+    opacity: 0;
+    transition: all 0.3s;
+    text-align: center;
+    display: flex;
+    bottom: 0px;
+}
+.box_introTop{
+    position: relative;
+}
+.box_introTop:hover .title_introTop{
+    opacity: 1;
+    bottom: -20px;
 }

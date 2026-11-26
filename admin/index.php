@@ -32,6 +32,9 @@
 
     $type = (isset($_GET['type'])) ? htmlspecialchars($_GET['type']) : "";
 
+    // In giá trị vào <script>: json_encode kèm mã hóa < > ' " & để chuỗi từ URL không thoát ra chạy mã lạ (XSS)
+    $jsAnToan = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE;
+
     $tbl = (isset($_GET['tbl']) && !empty($_GET['tbl'])) ? '_'.htmlspecialchars($_GET['tbl']) : "";
 
     $url_path=$tbl;
@@ -283,6 +286,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Administrator - Hệ thống quản trị nội dung</title>
+    <?php if(!isset($_SESSION[$login_name]) || $_SESSION[$login_name] != true){ ?><meta name="viewport" content="width=device-width, initial-scale=1"><?php } // chỉ trang đăng nhập co giãn theo điện thoại, các trang quản trị khác giữ bố cục máy tính ?>
     <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
     <link href="css/main.css" rel="stylesheet" rel="stylesheet" type="text/css" />
     <link href="FontAwesome5Pro/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -295,8 +299,8 @@
     <script>
         var FRAMEWORK=FRAMEWORK || {};
         var ROOT="<?=$https_config?>";
-        var COM="<?=$_GET["com"]?>";
-        var ACT="<?=$_GET["act"]?>";
+        var COM=<?=json_encode(isset($_GET['com']) ? (string)$_GET['com'] : '', $jsAnToan)?>;
+        var ACT=<?=json_encode(isset($_GET['act']) ? (string)$_GET['act'] : '', $jsAnToan)?>;
          var LANG="<?=$lang?>"
     </script>
      <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
@@ -339,12 +343,9 @@
     <script type="text/javascript" src="assets/js/custom.js"></script>
 </body>
 <?php }else{?>
-    <body class="nobg loginPage" style="background-color:#2990bb">
+    <body class="nobg loginPage">
     <?php include _template.$template."_tpl.php";?>
-    <div id="particles-js"></div>
 </body>
-<script src="js/particles.js"></script>
-<script src="js/app.js"></script>
 <script type="text/javascript" src="js/toast.js"></script>
 <script type="text/javascript" src="assets/js/functions.js"></script>
 <script type="text/javascript" src="assets/js/custom.js"></script>
@@ -354,7 +355,7 @@
          $(function() {
             $.toast({
                 heading: 'Thông báo hệ thống',
-                text: '<?=$notice_admin?>',
+                text: <?=json_encode(htmlspecialchars((string)$notice_admin), $jsAnToan)?>,
                 position: 'top-right',
                 stack: false,
                 icon: 'error'
@@ -364,7 +365,7 @@
 <?php } ?>
 <?php if(!empty($_GET['message']) && $_GET['message']!=NULL){
     $notice=json_decode(base64_decode($_GET['message']),true);
-    $status = ($notice['status']==200) ? 'success':'error';
+    $status = (is_array($notice) && isset($notice['status']) && $notice['status']==200) ? 'success':'error';
 ?>
     <script type="text/javascript">
         $(function() {
@@ -373,7 +374,7 @@
 
                 heading: 'Thông báo hệ thống',
 
-                text: '<?=$notice['message']?>',
+                text: <?=json_encode(htmlspecialchars(isset($notice['message']) ? (string)$notice['message'] : ''), $jsAnToan)?>,
 
                 position: 'top-right',
 

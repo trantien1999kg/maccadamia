@@ -1,0 +1,13 @@
+# Cấu hình thật có mật khẩu DB / SMTP: không commit (bản mẫu: libraries/config.sample.php)
+libraries/config.php
+# Dump DB, sao lưu, file nén
+*.sql
+*.bak
+*.zip
+*.log
+# Tài liệu nội bộ, file thiết kế tham khảo
+docs/
+WEASoft.html
+# File sinh tự động
+assets/css/cached.css
+cache/lienhe/

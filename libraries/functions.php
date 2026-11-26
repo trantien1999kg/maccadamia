@@ -870,7 +870,8 @@
 
         public function errorImg(){
 
-            $error='this.src="assets/images/no-image.jpg"';
+            // Ảnh lỗi thì ẩn đi (giữ chỗ để bố cục không nhảy); bỏ ảnh thay thế cũ mang logo công ty trước
+            $error='this.onerror=null;this.style.visibility="hidden"';
 
             return "onerror='".$error."'";
 
@@ -3830,6 +3831,18 @@
                 $mime_type = 'png';
                 break;
 
+                // Ảnh WebP (trang WEA): co nhỏ vẫn giữ WebP cho nhẹ
+
+                case 'WEBP':
+
+                $image = imagecreatefromwebp($image_url);
+
+                $func='imagewebp';
+
+                $mime_type = 'webp';
+
+                break;
+
                 default: die("UNKNOWN IMAGE TYPE: $image_url");
             }
 
@@ -4106,6 +4119,7 @@
             if($upload_dir)
             {
                 if($func == 'imagejpeg') $func($canvas, $upload_dir.$image_name,100);
+                elseif($func == 'imagewebp') $func($canvas, $upload_dir.$image_name,88);
                 else $func($canvas, $upload_dir.$image_name,floor($quality * 0.09));    
             }
 
@@ -4113,6 +4127,7 @@
 
             header('Content-Type: image/' . $mime_type);
             if($func=='imagejpeg') $func($canvas, NULL,100);
+            elseif($func=='imagewebp') $func($canvas, NULL,88);
             else $func($canvas, NULL,floor($quality * 0.09));
 
             imagedestroy($canvas);
@@ -4667,7 +4682,8 @@
 
             $pageURL .= "://";
 
-            if ($_SERVER["SERVER_PORT"] != "80") {
+            // Cổng mặc định (80 / 443) không ghi vào địa chỉ: canonical / og:url dạng "weasoft.vn:443" làm Google hiểu là trang khác
+            if (!in_array((string)$_SERVER["SERVER_PORT"], array("80", "443"), true) && strpos($_SERVER["SERVER_NAME"], ":") === false) {
 
                 $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
 

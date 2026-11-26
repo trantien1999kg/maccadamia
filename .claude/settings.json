@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "C:\\xampp\\htdocs\\task-management"
+    ],
+    "deny": [
+      "Read(./libraries/config.php)",
+      "Read(./*.sql)",
+      "Read(./database/*.sql)"
+    ]
+  }
+}

@@ -3,3 +3,8 @@ RewriteEngine On
 RewriteRule ^([a-zA-Z0-9_-]+).html$ index.php [L]
 RewriteRule ^([a-zA-Z0-9_-]+).html&(.*)$ index.php?$2 [L]
 RewriteRule ^([a-zA-Z0-9_-]+).html?(.*)$ index.php?$2 [L]
+
+# Trang quản trị: không cho Google lập chỉ mục
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
