@@ -1,0 +1,49 @@
+/* Chatbot AI WEA Soft (assets/js/wea-chat.js). Màu lấy biến của giao diện WEA (wea-home.css); trang cũ chưa có biến thì dùng màu mặc định */
+.wc{--wc-c:var(--bl,#0B7FC4);--wc-ink:var(--ink,#10263A);--wc-mu:var(--mu,#556B7D);--wc-ln:var(--ln,#DCE8EF);--wc-soft:var(--soft,#F1F9FE);position:fixed;right:20px;bottom:20px;z-index:9990;font-family:var(--font,"Be Vietnam Pro",Arial,sans-serif);color:var(--wc-ink)}
+.wc *{box-sizing:border-box}
+.wc-an{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wc-nut{width:58px;height:58px;border:0;border-radius:50%;background:var(--wc-c);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 28px color-mix(in srgb,var(--wc-c) 38%,transparent);transition:transform .2s,box-shadow .2s}
+.wc-nut:hover{transform:translateY(-2px);box-shadow:0 14px 32px color-mix(in srgb,var(--wc-c) 45%,transparent)}
+.wc-nut:focus-visible,.wc button:focus-visible,.wc textarea:focus-visible,.wc input:focus-visible,.wc select:focus-visible{outline:3px solid color-mix(in srgb,var(--wc-c) 45%,transparent);outline-offset:2px}
+.wc.is-mo .wc-nut{display:none}
+.wc-khung{position:absolute;right:0;bottom:0;width:min(380px,calc(100vw - 32px));height:min(600px,calc(100vh - 40px));background:#fff;border:1px solid var(--wc-ln);border-radius:20px;box-shadow:0 24px 60px rgba(16,38,58,.18);display:flex;flex-direction:column;overflow:hidden;animation:wcVao .2s ease-out}
+.wc-khung[hidden]{display:none}
+@keyframes wcVao{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wc-dau{display:flex;align-items:center;gap:10px;padding:14px 14px 12px 16px;background:linear-gradient(135deg,var(--wc-c),color-mix(in srgb,var(--wc-c) 70%,#2BA8F0));color:#fff}
+.wc-dau b{display:block;font-size:15px}
+.wc-dau small{font-size:12px;opacity:.88}
+.wc-dau div{flex:1;min-width:0}
+.wc-ava{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.2);display:grid;place-items:center;font-weight:800}
+.wc-dong{width:34px;height:34px;border:0;border-radius:10px;background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.wc-dong:hover{background:rgba(255,255,255,.28)}
+.wc-tin{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--wc-soft);scrollbar-width:thin}
+.wc-m{display:flex;max-width:86%}
+.wc-m span{padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.wc-m.is-bot span{background:#fff;border:1px solid var(--wc-ln);border-bottom-left-radius:6px}
+.wc-m.is-user{align-self:flex-end}
+.wc-m.is-user span{background:var(--wc-c);color:#fff;border-bottom-right-radius:6px}
+.wc-m.is-cho span{color:var(--wc-mu);font-style:italic}
+.wc-m a{color:var(--wc-c);font-weight:600;word-break:break-all}
+.wc-goiy{display:flex;flex-wrap:wrap;gap:6px}
+.wc-goiy button{border:1px solid color-mix(in srgb,var(--wc-c) 35%,transparent);background:#fff;color:var(--wc-c);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;transition:background .2s}
+.wc-goiy button:hover{background:color-mix(in srgb,var(--wc-c) 8%,#fff)}
+.wc-nhap{display:flex;align-items:flex-end;gap:8px;padding:10px 12px;border-top:1px solid var(--wc-ln);background:#fff}
+.wc-nhap textarea{flex:1;resize:none;border:1px solid var(--wc-ln);border-radius:14px;padding:9px 12px;font:inherit;font-size:14px;line-height:1.4;max-height:110px;color:var(--wc-ink)}
+.wc-gui{width:40px;height:40px;flex:0 0 auto;border:0;border-radius:12px;background:var(--wc-c);color:#fff;display:grid;place-items:center;cursor:pointer}
+.wc-chan{margin:0;padding:0 14px 10px;background:#fff;font-size:11.5px;color:var(--wc-mu)}
+.wc-lk{border:0;background:none;padding:0;color:var(--wc-c);font:inherit;font-weight:600;cursor:pointer}
+.wc-lk:hover{text-decoration:underline}
+.wc-form{background:#fff;border:1px solid var(--wc-ln);border-radius:16px;padding:12px;display:grid;gap:8px;font-size:13px}
+.wc-form p{margin:0;color:var(--wc-mu)}
+.wc-form label{display:grid;gap:4px;font-weight:600}
+.wc-form input,.wc-form select,.wc-form textarea{border:1px solid var(--wc-ln);border-radius:10px;padding:8px 10px;font:inherit;font-weight:400;font-size:14px;color:var(--wc-ink);width:100%}
+.wc-form .wc-loi{color:#E11D48;font-weight:600}
+.wc-form-nut{display:flex;justify-content:flex-end;align-items:center;gap:12px}
+.wc-chinh{border:0;border-radius:10px;background:var(--wc-c);color:#fff;font:inherit;font-weight:600;padding:8px 14px;cursor:pointer}
+.wc-chinh:disabled{opacity:.6;cursor:default}
+@media (max-width:560px){
+  .wc{right:14px;bottom:14px}
+  .wc.is-mo{left:0;right:0;bottom:0}
+  .wc-khung{position:fixed;inset:auto 0 0 0;width:100%;height:min(86vh,640px);border-radius:20px 20px 0 0}
+}
+@media (prefers-reduced-motion:reduce){.wc-khung{animation:none}.wc-nut{transition:none}}

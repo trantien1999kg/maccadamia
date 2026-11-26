@@ -49,6 +49,7 @@ Source kế thừa từ website cũ, đã có sẵn nhiều thứ. **Không xây
 - Sửa bên phần mềm thì theo `task-management/CLAUDE.md` (quy tắc của nó chặt hơn: phân quyền, `dich()`, README, docs/ky-thuat.md…), không áp quy tắc website sang.
 - Việc chạm cả hai (vd đổi giá gói, thêm tính năng cần giới thiệu, đổi đường dẫn đăng nhập / đăng ký): sửa nguồn ở phần mềm trước, rồi cập nhật website trong cùng đợt; báo cáo tách rõ file của từng dự án.
 - Thư mục bị chặn đọc (bí mật / dump DB / thư viện): xem `deny` trong `.claude/settings.json` của từng dự án; không tìm cách đọc vòng.
+- Chatbot AI (27/11/2026): `assets/js/wea-chat.js` + `assets/css/wea-chat.css` nạp ở cuối `wea_footer.php` (chỉ khi config có `wea_chat.key`), gọi `ajax/wea_chat.php` (cầu nối máy chủ → app.weasoft.vn/api/site_chat.php, khóa chung + IP khách). Nội dung trả lời, giới hạn, lưu hội thoại, liên hệ khách để lại đều ở phía phần mềm (`api/site_chat_lib.php`, xem ở /admin › Khách hỏi). Đổi giá / dịch vụ: sửa bên phần mềm là bot nói theo.
 - Đếm lượt xem (26/11/2026): cuối `templates/layouts/wea_footer.php` có đoạn `navigator.sendBeacon` gửi đường dẫn + trang giới thiệu + utm_source về `app.weasoft.vn/api/track.php` (xem ở app.weasoft.vn/admin › Thống kê). Không cookie, không thư viện ngoài, chỉ chạy trên tên miền thật. Trang WEA mới phải include `wea_footer.php` thì mới được đếm; không thêm Google Analytics / pixel khác khi chưa hỏi.
 
 ## 4. Công nghệ và cấu trúc

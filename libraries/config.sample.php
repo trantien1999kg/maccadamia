@@ -98,6 +98,8 @@ $config = array(
 	),
 
 	'faceid' => '582534979152027',
+	// Chatbot AI (ajax/wea_chat.php): url = API chatbot của phần mềm; key = chuỗi bí mật, PHẢI trùng 'site_chat' 'key' trong config của app. Trống = ẩn nút chat
+	'wea_chat' => array('url' => 'https://app.weasoft.vn/api/site_chat.php', 'key' => ''),
 	// salt / secret: chuỗi ngẫu nhiên riêng của máy thật, chỉ ghi trong libraries/config.php (KHÔNG commit)
 	'salt' => '',
 	'secret' => ''

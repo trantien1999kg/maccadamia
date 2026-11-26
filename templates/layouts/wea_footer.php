@@ -68,3 +68,8 @@
     } catch (e) {}
 })();
 </script>
+<?php /* Chatbot AI WEA Soft (assets/js/wea-chat.js → ajax/wea_chat.php → app.weasoft.vn). Chỉ nạp khi đã cấu hình khóa chung 'wea_chat' trong config.php */ ?>
+<?php if(!empty($config['wea_chat']['key'])){ ?>
+<link rel="stylesheet" href="assets/css/wea-chat.css?v=<?=filemtime(_root._ds.'assets/css/wea-chat.css')?>">
+<script src="assets/js/wea-chat.js?v=<?=filemtime(_root._ds.'assets/js/wea-chat.js')?>" defer></script>
+<?php } ?>
